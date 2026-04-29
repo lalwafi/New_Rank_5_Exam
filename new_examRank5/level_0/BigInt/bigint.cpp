@@ -27,7 +27,7 @@ bigint &bigint::operator=(const bigint &copy)
 
 bigint::~bigint() {}
 
-std::string	bigint::getnum() const
+std::string	bigint::getStr() const
 {
 	return (this->_num);
 }
@@ -93,11 +93,15 @@ bigint	bigint::operator++(int)
 
 bigint bigint::operator<<(unsigned int n) const
 {
-	if (this->_num == "0")
-		return *this;
-	bigint r(*this);
-	r._num += std::string(n, '0'); // adds n number of '0' to the end of r._num
-	return r; 
+	// if (this->_num == "0")
+	// 	return *this;
+	// bigint r(*this);
+	// r._num += std::string(n, '0'); // adds n number of '0' to the end of r._num
+	// return r;
+
+    bigint temp = *this;
+    temp._num.insert(temp._num.end(), n, '0'); // this might not work if bigint is 0
+    return (temp);
 }
 
 bigint bigint::operator>>(unsigned int n) const
@@ -108,8 +112,97 @@ bigint bigint::operator>>(unsigned int n) const
         r._num = "0";
     else
         r._num.erase(r._num.size() - n);   // erase last n digits
-
     return r;
 }
 
+bigint bigint::operator<<=(unsigned int n)
+{
+    *this = *this << n;
+    return *this;
+}
+
+bigint bigint::operator>>=(unsigned int n)
+{
+    *this = *this >> n;
+    return *this;
+}
+
 // --------------------------- shift with num ---------------------------
+
+// -------------------------- shift with object --------------------------
+
+unsigned int bigint::stringToUInt(const bigint &other) const
+{
+    std::stringstream ss(other.getStr());
+    unsigned int i;
+    ss >> i;
+    return (i);
+}
+
+bigint bigint::operator<<(const bigint &other) const
+{
+    return (*this << stringToUInt(other));
+}
+
+bigint bigint::operator>>(const bigint &other) const
+{
+    return (*this >> stringToUInt(other));
+}
+
+bigint bigint::operator<<=(const bigint &other)
+{
+    *this = *this << stringToUInt(other);
+    return *this;
+}
+
+bigint bigint::operator>>=(const bigint &other)
+{
+    *this = *this >> stringToUInt(other);
+    return *this;
+}
+
+// -------------------------- shift with object --------------------------
+
+// ------------------------ comparison operators ------------------------
+
+bool bigint::operator==(const bigint &other) const
+{
+    return (this->getStr() == other.getStr());
+}
+
+bool bigint::operator!=(const bigint &other) const
+{
+    return (this->getStr() != other.getStr());
+}
+
+bool bigint::operator<(const bigint &other) const
+{
+    return (this->getStr() < other.getStr());
+}
+
+bool bigint::operator>(const bigint &other) const
+{
+    return (this->getStr() > other.getStr());
+}
+
+bool bigint::operator<=(const bigint &other) const
+{
+    return ((this->getStr() > other.getStr()) || (this->getStr() == other.getStr()));
+}
+
+bool bigint::operator>=(const bigint &other) const
+{
+    return (this->getStr() >= other.getStr());
+}
+
+// ------------------------ comparison operators ------------------------
+
+// ------------------------------ STD::COUT ------------------------------
+
+std::ostream &operator<<(std::ostream &os, const bigint &other)
+{
+    os << other.getStr();
+    return os;
+}
+
+// ------------------------------ STD::COUT ------------------------------

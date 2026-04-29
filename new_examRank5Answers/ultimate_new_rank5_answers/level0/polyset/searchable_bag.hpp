@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 19:23:22 by fatkeski          #+#    #+#             */
-/*   Updated: 2026/04/28 20:25:53 by lalwafi          ###   ########.fr       */
+/*   Updated: 2026/04/29 23:00:23 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,5 @@
 class searchable_bag : virtual public bag // virtual inheritance
 {
  public:
-	virtual bool has(int) const = 0; // verilen sayı bag'te var mı yok mu kontrolünü yapar
+	virtual bool has(int) const = 0; // checks whether the given number exists in the bag or not
 };

@@ -6,15 +6,15 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 21:42:38 by fatkeski          #+#    #+#             */
-/*   Updated: 2026/04/28 20:25:53 by lalwafi          ###   ########.fr       */
+/*   Updated: 2026/04/29 23:00:23 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "searchable_bag.hpp"
 
-// "wrapping" (sarama) işlemi, genellikle bir sınıfın (class) başka bir sınıfı,
-// fonksiyonu ya da veriyi içine alarak bir arayüz (interface) sağlaması anlamına gelir.
-// REFERANSLA SARMA
+// "wrapping" operation typically means that a class (class) wraps another class,
+// function or data to provide an interface (interface).
+// WRAPPING BY REFERENCE
 class set
 {
 	private:

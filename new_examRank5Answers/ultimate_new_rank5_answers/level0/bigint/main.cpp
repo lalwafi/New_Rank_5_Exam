@@ -25,7 +25,8 @@ int main()
 
     std::cout << "a =" << a << std::endl;
     std::cout << "d =" << d << std::endl;
-
+    
+    std::cout << std::boolalpha;
     std::cout << "(d < a) = " << (d < a) << std::endl;
     std::cout << "(d <= a) = " << (d <= a) << std::endl;
     std::cout << "(d > a) = " << (d > a) << std::endl;

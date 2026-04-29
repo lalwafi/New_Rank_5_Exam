@@ -36,6 +36,7 @@ int main()
     std::cout << "d =" << d << std::endl;
 
     // comparisons
+    std::cout << std::boolalpha;
     std::cout << "(d < a) = " << (d < a) << std::endl;   // operator<
     std::cout << "(d <= a) = " << (d <= a) << std::endl; // operator<=
     std::cout << "(d > a) = " << (d > a) << std::endl;   // operator>

@@ -17,7 +17,7 @@ class bigint
 		~bigint();
 
 		// getter
-		std::string getnum() const;
+		std::string getStr() const;
 		
 		// addition
 		bigint operator+(const bigint &other) const; 
@@ -34,6 +34,8 @@ class bigint
 		bigint operator>>=(unsigned int n);
 
 		// shift with object
+		unsigned int stringToUInt(const bigint &other) const;
+
 		bigint operator<<(const bigint &other) const;
 		bigint operator>>(const bigint &other) const;
 		bigint operator<<=(const bigint &other);
@@ -47,3 +49,5 @@ class bigint
 		bool operator<=(const bigint &other) const;
 		bool operator>=(const bigint &other) const;
 };
+
+std::ostream &operator<<(std::ostream &os, const bigint &other);
