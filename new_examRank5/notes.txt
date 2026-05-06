@@ -1,4 +1,11 @@
+- c++ -Wall -Werror -Wextra -std=c++98
+
 - level 0
 	- bigint
+		- #include iostream , cstdlib , string , sstream
 		- for increments, prefix needs to have reference, postfix needs to have (int) in parameters
-		- 
+		- std::stringstream ss;
+			ss << i;
+			this->_num = ss.str();
+		- push_back(char) , insert(str.end(), n, char) , erase(len - n, n)
+		
