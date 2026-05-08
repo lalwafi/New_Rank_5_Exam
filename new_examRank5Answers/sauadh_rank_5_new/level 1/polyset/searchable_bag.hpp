@@ -17,5 +17,5 @@
 class searchable_bag : virtual public bag // virtual inheritance
 {
  public:
-	virtual bool has(int) const = 0; // verilen sayı bag'te var mı yok mu kontrolünü yapar
+	virtual bool has(int) const = 0; // checks if the given number exists in the bag
 };

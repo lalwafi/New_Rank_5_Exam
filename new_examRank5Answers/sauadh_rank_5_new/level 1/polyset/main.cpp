@@ -20,6 +20,7 @@ int main(int argc, char **argv)
 	t->print();
 	a->print();
 
+	std::cout <<std::boolalpha;
 	for (int i = 1; i < argc; i++)
 	{
 		std::cout << t->has(atoi(argv[i])) << std::endl;
