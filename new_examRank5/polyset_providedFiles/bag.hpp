@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   bag.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fatkeski <fatkeski@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 19:12:00 by fatkeski          #+#    #+#             */
-/*   Updated: 2026/04/29 23:00:23 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/07/26 19:25:00 by fatkeski         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once // multiple include guard blocker -> "This file is included only once; if the same file is included a second time, ignore it."
+#pragma once // birden fazla include guard engelleyici -> "Bu dosya bir kez dahil edildikten sonra, aynı dosya ikinci kez include edilirse onu yok say."
 
-// bag data structure is equivalent to multiset. it is a structure that holds a value and how many instances of it exist.
-// abstract class and even an interface. everything that is a bag should be able to perform the following 4 operations
+// bag veri yapısı, multiset'e denktir. bir veri ve ondan kaç tane bulunduğunu tutan bir yapıdır.
+// abstract class ve hatta interface. bag olan her şey aşağıdaki 4 işlemi yapabilmeli
 class bag
 {
  public:

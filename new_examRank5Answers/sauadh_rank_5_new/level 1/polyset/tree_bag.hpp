@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_bag.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fatkeski <fatkeski@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 20:41:34 by fatkeski          #+#    #+#             */
-/*   Updated: 2025/07/26 21:14:02 by fatkeski         ###   ########.fr       */
+/*   Updated: 2026/05/08 16:02:55 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 class tree_bag : virtual public bag {
 protected:
-	// binary serach tree node yapısı
+	// binary search tree node structure
 	struct node {
 	  node *l;
 	  node *r;
@@ -32,7 +32,7 @@ public:
 	~tree_bag();
 
 	node *extract_tree(); // getter
-	void set_tree(node *); // dışarıdan gelen tree'yi classtaki tree'ye yerleştirir.
+	void set_tree(node *); // places the incoming tree from outside into the class's tree.
 
 	virtual void insert(int);
 	virtual void insert(int *array, int size);
@@ -42,5 +42,5 @@ public:
 private:
 	static void destroy_tree(node *);
 	static void print_node(node *);
-	static node *copy_node(node *); // void* -> node* yapıldı
+	static node *copy_node(node *); // void* -> node* conversion was done
 };

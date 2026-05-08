@@ -5,6 +5,7 @@ set::set(searchable_bag &_bag):bag(&_bag)
 
 set::~set()
 {}
+
 set::set(const set& copy):bag(copy.bag)
 {
 }

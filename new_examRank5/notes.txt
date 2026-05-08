@@ -9,4 +9,6 @@
 			this->_num = ss.str();
 		- push_back(char) , insert(str.end(), n, char) , erase(len - n, n)
 		- << is to insert, >> is to erase
+	- Polyset
+		- does set not need a default constructor?
 		
