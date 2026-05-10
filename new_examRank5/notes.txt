@@ -12,3 +12,7 @@
 	- Polyset
 		- does set not need a default constructor?
 		
+- level 1
+	- life
+		- are we allowed for loops?
+		- 

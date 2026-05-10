@@ -7,7 +7,7 @@ searchable_array_bag::searchable_array_bag(): array_bag()
 searchable_array_bag::~searchable_array_bag()
 {}
 
-searchable_array_bag::searchable_array_bag(const searchable_array_bag& copy)
+searchable_array_bag::searchable_array_bag(const searchable_array_bag& copy): array_bag(copy)
 {
     *this = copy;
 }

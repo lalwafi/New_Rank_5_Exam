@@ -14,8 +14,7 @@ set& set::operator=(const set& assign)
 {
     if (this != &assign)
         bag = assign.bag;
-
-        return (*this);
+    return (*this);
 }
 
 const searchable_bag& set::get_bag()

@@ -17,21 +17,21 @@ class bigint
 
 		std::string	getstr() const;
 
-		// addition
+		//addition
 		bigint	operator+(const bigint &other) const;
 		bigint	&operator+=(const bigint &other);
 
-		// increment
+		// increment decrement 
 		bigint	&operator++();
 		bigint	operator++(int);
 
-		// bit shift int
+		// bit shift with int
 		bigint	operator<<(unsigned int i) const;
 		bigint	operator>>(unsigned int i) const;
 		bigint	&operator<<=(unsigned int i);
 		bigint	&operator>>=(unsigned int i);
 
-		// bit shift object
+		// bit shift with obj
 		bigint	operator<<(const bigint &other) const;
 		bigint	operator>>(const bigint &other) const;
 		bigint	&operator<<=(const bigint &other);
@@ -44,7 +44,6 @@ class bigint
 		bool	operator>=(const bigint &other) const;
 		bool	operator==(const bigint &other) const;
 		bool	operator!=(const bigint &other) const;
-
 };
 
 std::ostream	&operator<<(std::ostream &os, const bigint &other);

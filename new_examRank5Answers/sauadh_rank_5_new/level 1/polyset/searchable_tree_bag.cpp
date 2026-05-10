@@ -7,7 +7,7 @@ searchable_tree_bag::searchable_tree_bag(): tree_bag()
 searchable_tree_bag::~searchable_tree_bag()
 {}
 
-searchable_tree_bag::searchable_tree_bag(const searchable_tree_bag& copy)
+searchable_tree_bag::searchable_tree_bag(const searchable_tree_bag& copy): tree_bag(copy)
 {
     *this = copy;
 }

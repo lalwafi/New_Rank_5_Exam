@@ -1,14 +1,14 @@
 #pragma once
-#include <iostream>
 #include <string>
-#include <cstdlib>
+#include <iostream>
 #include <sstream>
+#include <cstdlib>
 
 class vect2
 {
 	private:
-		int	_x;
-		int	_y;
+		int _x;
+		int _y;
 	public:
 		vect2();
 		vect2(int x, int y);
@@ -16,9 +16,15 @@ class vect2
 		vect2	&operator=(const vect2 &copy);
 		~vect2();
 
-		// []
-		int	&operator[](int i);
+		// [ ]
 		int	operator[](int i) const;
+		int	&operator[](int i);
+
+		// increment decrement
+		vect2	&operator++();
+		vect2	operator++(int);
+		vect2	&operator--();
+		vect2	operator--(int);
 
 		// addition
 		vect2	operator+(const vect2 &other) const;
@@ -33,17 +39,11 @@ class vect2
 		vect2	operator*(int i) const;
 		vect2	&operator*=(int i);
 
-		// increment decrement
-		vect2	&operator++();
-		vect2	operator++(int);
-		vect2	&operator--();
-		vect2	operator--(int);
-
-		// comparative operators
+		// compare
 		bool	operator==(const vect2 &other) const;
 		bool	operator!=(const vect2 &other) const;
-
 };
 
 vect2	operator*(int i, const vect2 &other);
+
 std::ostream	&operator<<(std::ostream &os, const vect2 &other);

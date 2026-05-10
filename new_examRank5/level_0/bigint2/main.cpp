@@ -26,10 +26,16 @@ int main()
     std::cout << "(d >>= 2) = " << (d >>= (const bigint)2) << std::endl;
     std::cout << "b = " << b << std::endl;
 
+    bigint  f(101010);
+    std::cout << "f = " << f << std::endl;
+    std::cout << "f >> 6 = " << (f >> 6) << std::endl;
+    std::cout << "f = " << f << std::endl;
+
+
     std::cout << "a =" << a << std::endl;
     std::cout << "d =" << d << std::endl;
 
-	std::cout << std::boolalpha;
+    std::cout << std::boolalpha;
     std::cout << "(d < a) = " << (d < a) << std::endl;
     std::cout << "(d <= a) = " << (d <= a) << std::endl;
     std::cout << "(d > a) = " << (d > a) << std::endl;
