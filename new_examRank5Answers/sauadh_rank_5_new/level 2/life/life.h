@@ -7,15 +7,15 @@
 
 typedef struct s_life
 {
+    char  alive;
+    char  dead;
     int   w;
     int   h;
     int   iter;
-    char  alive;
-    char  dead;
-    int   draw;
-    char**  grid;
     int    i;
     int    j;
+    char**  grid;
+    int   draw;
 } t_life;
 
 

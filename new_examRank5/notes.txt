@@ -14,5 +14,16 @@
 		
 - level 1
 	- life
-		- are we allowed for loops?
+		- read(STDIN_FILENO, &c, 1)
+		- For a space that is populated:
+			- Each cell with one or no neighbors dies, as if by solitude.
+			- Each cell with two or three neighbors survives.
+			- Each cell with four or more neighbors dies, as if by overpopulation.
+		- For a space that is empty or unpopulated:
+			- Each cell with three neighbors becomes populated.
+		- summary for monkey brain
+			- 1 and 0-1 neighbors = 0
+			- 1 and 2-3 neighbors = 1
+			- 1 and 4+  neighbors = 0
+			- 0 and 3   neighbors = 1
 		- 

@@ -15,7 +15,7 @@ int main(int ac, char **av)
 	if (height <= 0 || width <= 0 || iter < 0)
 		return 1;
 	
-	char board[height][width];                    // do we not need to alloc??
+	char board[height][width];
 	char new_board[height][width];
 
 	// fill board with empty cells
@@ -54,6 +54,7 @@ int main(int ac, char **av)
 		{
 			for (int x = 0; x < width; x++)
 			{
+				// check how many alive neighbors, we store those in density
 				int density = 0;
 				for (int yy = -1; yy <= 1; yy++)
 				{
