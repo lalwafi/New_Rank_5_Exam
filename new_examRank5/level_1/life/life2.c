@@ -7,27 +7,24 @@ int main(int ac, char **av)
 {
 	if (ac != 4)
 		return 1;
+	
 	int width = atoi(av[1]);
 	int height = atoi(av[2]);
 	int iter = atoi(av[3]);
-
 	if (width <= 0 || height <= 0 || iter < 0)
 		return 1;
-	
+
 	char board[height][width];
 	char new_board[height][width];
-
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < width; x++)
-		{
 			board[y][x] = 0;
-		}
 	}
 
 	char c;
 	int x = 0, y = 0;
-	bool pen = false;
+	bool	pen = false;
 	while (read(STDIN_FILENO, &c, 1))
 	{
 		if (c == 'a' && x > 0)
@@ -52,13 +49,15 @@ int main(int ac, char **av)
 			for (int x = 0; x < width; x++)
 			{
 				int neighbors = 0;
-				for (int yy = -1; yy <= 1; yy++)
+				for (int yy = -1; yy < 1; yy++)
 				{
-					for (int xx = -1; xx <= 1; xx++)
-						if ((xx || yy) && (xx + x) < width && (x + xx) >= 0 && \
-											(y + yy) < height && (y + yy) >= 0)
-							neighbors += board[y+yy][x+xx];
+					for (int xx = -1; xx < 1; xx++)
+					{
+						if ((xx || yy) && (xx + x) >= 0 && (xx + x) < width && (yy + y) >= 0 && (yy + y) < height)
+							neighbors += 1;
+					}
 				}
+
 				if (board[y][x] == 1 && (neighbors == 2 || neighbors == 3))
 					new_board[y][x] = 1;
 				else if (board[y][x] == 0 && neighbors == 3)
@@ -86,6 +85,5 @@ int main(int ac, char **av)
 		}
 		putchar('\n');
 	}
-
 	return 0;
 }
