@@ -27,3 +27,8 @@
 			- 1 and 4+  neighbors = 0
 			- 0 and 3   neighbors = 1
 		- 
+	- bsq
+		- i hate how he swapped x and y, change that
+		- i hate how he does ++i instead of i++
+		- replace vague true false in ifs
+		- i dont think it frees memory??

@@ -84,7 +84,7 @@ static int parse_map(FILE *f, t_map *out) {
     return 0;
 }
 
-static int contient_obstacle(const t_map *m, size_t x0, size_t y0, size_t taille) {
+static int has_obstacle(const t_map *m, size_t x0, size_t y0, size_t taille) {
     size_t x_end = x0 + taille;
     size_t y_end = y0 + taille;
     for (size_t x = x0; x < x_end; ++x) {
@@ -120,7 +120,7 @@ static void solve_naive_and_print(t_map *m) {
         for (size_t y = 0; y < m->cols; ++y) {
             size_t size_try = 1;
             while (x + size_try <= m->rows && y + size_try <= m->cols) {
-                if (contient_obstacle(m, x, y, size_try)) {
+                if (has_obstacle(m, x, y, size_try)) {
                     break;
                 }
                 if (size_try > best_size) {
