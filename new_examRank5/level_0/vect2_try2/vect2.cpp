@@ -18,26 +18,23 @@ vect2	&vect2::operator=(const vect2 &copy)
 
 vect2::~vect2() {}
 
-// ---------------------- [ ] ----------------------
-
+// [ ]
 int	vect2::operator[](int i) const
 {
 	if (i == 0)
-		return this->_x;
-	return this->_y;
+		return (this->_x);
+	return (this->_y);
 }
 
 int	&vect2::operator[](int i)
 {
 	if (i == 0)
-		return this->_x;
-	return this->_y;
+		return (this->_x);
+	return (this->_y);
 }
 
-// ---------------------- [ ] ----------------------
 
-// ---------------------- increment decrement ----------------------
-
+// increment decrement
 vect2	&vect2::operator++()
 {
 	this->_x += 1;
@@ -68,13 +65,11 @@ vect2	vect2::operator--(int)
 	return temp;
 }
 
-// ---------------------- increment decrement ----------------------
 
-// ---------------------- addition ----------------------
-
+// addition
 vect2	vect2::operator+(const vect2 &other) const
 {
-	vect2	temp(*this);
+	vect2 temp(*this);
 	temp._x += other._x;
 	temp._y += other._y;
 	return temp;
@@ -86,13 +81,11 @@ vect2	&vect2::operator+=(const vect2 &other)
 	return *this;
 }
 
-// ---------------------- addition ----------------------
 
-// ---------------------- subtraction ----------------------
-
+// minus
 vect2	vect2::operator-() const
 {
-	vect2	temp(*this);
+	vect2 temp(*this);
 	temp._x = -temp._x;
 	temp._y = -temp._y;
 	return temp;
@@ -100,7 +93,7 @@ vect2	vect2::operator-() const
 
 vect2	vect2::operator-(const vect2 &other) const
 {
-	vect2	temp(*this);
+	vect2 temp(*this);
 	temp._x -= other._x;
 	temp._y -= other._y;
 	return temp;
@@ -112,13 +105,11 @@ vect2	&vect2::operator-=(const vect2 &other)
 	return *this;
 }
 
-// ---------------------- subtraction ----------------------
 
-// ---------------------- multiplication ----------------------
-
+// multiply
 vect2	vect2::operator*(int i) const
 {
-	vect2	temp(*this);
+	vect2 temp(*this);
 	temp._x *= i;
 	temp._y *= i;
 	return temp;
@@ -130,28 +121,24 @@ vect2	&vect2::operator*=(int i)
 	return *this;
 }
 
-vect2	operator*(int i, const vect2 &other)
-{
-	vect2	temp;
-	temp = other * i;
-	return temp;
-}
 
-// ---------------------- multiplication ----------------------
-
-// ---------------------- compare ----------------------
-
+// compare
 bool	vect2::operator==(const vect2 &other) const
 {
-	return (this->_x == other._x && this->_y == other._y);
+	return (_x == other._x && _y == other._y);
 }
 
 bool	vect2::operator!=(const vect2 &other) const
 {
-	return (this->_x != other._x && this->_y != other._y);
+	return (_x != other._x && _y != other._y);
 }
 
-// ---------------------- compare ----------------------
+
+
+vect2	operator*(int i, const vect2 &other)
+{
+	return (other * i);
+}
 
 std::ostream	&operator<<(std::ostream &os, const vect2 &other)
 {

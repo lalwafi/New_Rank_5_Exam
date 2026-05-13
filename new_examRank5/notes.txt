@@ -32,3 +32,20 @@
 		- i hate how he does ++i instead of i++
 		- replace vague true false in ifs
 		- i dont think it frees memory??
+
+		-steps
+			- read header: rows empty obst full
+			- validate header
+			- alloc grid = calloc(rows)
+			- for each row:
+			- getline
+			- must end with '\n'
+			- strip newline
+			- check length
+			- check chars
+			- malloc row + copy
+			- on error: return -1 (caller frees)
+			- solve: brute force biggest square
+			- fill grid with full char
+			- print grid
+			- free rows + grid

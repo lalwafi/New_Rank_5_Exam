@@ -15,7 +15,7 @@ searchable_tree_bag::~searchable_tree_bag() {}
 
 bool	searchable_tree_bag::has(int value) const
 {
-	node	*current = this->tree;
+	node *current = this->tree;
 	while (current)
 	{
 		if (current->value == value)

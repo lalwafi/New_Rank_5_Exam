@@ -12,6 +12,16 @@ typedef struct s_map
 	char	**grid;
 } t_map;
 
+static void	free_map(t_map *m)
+{
+	if (!m || !m->grid)
+		return;
+	for (size_t i = 0; i < m->height; ++i)
+		free(m->grid[i]);
+	free(m->grid);
+	m->grid = NULL;
+}
+
 static int	parse_header(FILE *f, t_map *m)
 {
 	size_t rows = 0;
@@ -43,35 +53,54 @@ static int	read_lines(FILE *f, t_map *m)
 	{
 		len = getline(&line, &cap, f);
 		if (len < 0 || len == 0)
+		{
+			free(line);
 			return -1;
+		}
 
 		if (line[len - 1] != '\n')
+		{
+			free(line);
 			return -1;
+		}
 		line[len - 1] = '\0';
 		len -= 1;
 
 		if (len <= 0)
+		{
+			free(line);
 			return -1;
+		}
 
 		if (r == 0)
 			m->width = (size_t)len;
 		else if ((size_t)len != m->width)
+		{
+			free(line);
 			return -1;
+		}
 		
 		for (size_t c = 0; c < m->width; ++c)
 		{
 			char ch = line[c];
 			if (!(ch == m->empty_c || ch == m->obst_c))
+			{
+				free(line);
 				return -1;
+			}
 		}
 
 		m->grid[r] = (char *)malloc(m->width + 1);       // why not calloc
 		if (!m->grid[r])
+		{
+			free(line);
 			return -1;
+		}
 		
 		for (size_t c = 0; c <= m->width; ++c)
 			m->grid[r][c] = line[c];
 	}
+	free(line);
 	return 0;
 }
 
@@ -87,7 +116,10 @@ static int	parse_map(FILE *f, t_map *out)
 	if (parse_header(f, out) != 0)
 		return -1;
 	if (read_lines(f, out) != 0)
+	{
+		free_map(out);
 		return -1;
+	}
 	return 0;
 }
 
@@ -163,6 +195,7 @@ static int	process_stream(FILE *f)
 	if (parse_map(f, &m) != 0)
 	{
 		fputs("map error\n", stderr);
+		free_map(&m);
 		return -1;
 	}
 	solve_naive_and_print(&m);

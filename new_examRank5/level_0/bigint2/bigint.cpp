@@ -4,9 +4,9 @@ bigint::bigint() : _num("0") {}
 
 bigint::bigint(unsigned int i)
 {
-	std::stringstream	ss;
+	std::stringstream ss;
 	ss << i;
-	_num = ss.str();
+	this->_num = ss.str();
 }
 
 bigint::bigint(const bigint &copy) : _num(copy._num) {}
@@ -14,7 +14,7 @@ bigint::bigint(const bigint &copy) : _num(copy._num) {}
 bigint	&bigint::operator=(const bigint &copy)
 {
 	if (this != &copy)
-		_num = copy._num;
+		this->_num = copy._num;
 	return *this;
 }
 
@@ -22,29 +22,29 @@ bigint::~bigint() {}
 
 std::string	bigint::getstr() const
 {
-	return _num;
+	return (this->_num);
 }
 
-// ---------------------- addition ----------------------
+// ----------- addition -----------
 
-std::string	reverse(std::string str)
+std::string reverse(std::string str)
 {
-	std::string	revstr;
+	std::string revstr;
 	for (size_t i = str.length(); i > 0; i--)
 		revstr.push_back(str[i - 1]);
 	return revstr;
 }
 
-std::string	addition(const bigint &obj1, const bigint &obj2)
+std::string addition(const bigint &obj1, const bigint &obj2)
 {
-	std::string	str1 = reverse(obj1.getstr());
-	std::string	str2 = reverse(obj2.getstr());
-	size_t	len1 = str1.length();	
-	size_t	len2 = str2.length();
+	std::string str1 = reverse(obj1.getstr());
+	std::string str2 = reverse(obj2.getstr());
+	int len1 = str1.length();
+	int len2 = str2.length();
 
 	if (len1 < len2)
 	{
-		size_t	diff = len2 - len1;
+		int diff = len2 - len1;
 		while (diff > 0)
 		{
 			str1.push_back('0');
@@ -53,7 +53,7 @@ std::string	addition(const bigint &obj1, const bigint &obj2)
 	}
 	if (len1 > len2)
 	{
-		size_t	diff = len1 - len2;
+		int diff = len1 - len2;
 		while (diff > 0)
 		{
 			str2.push_back('0');
@@ -61,29 +61,25 @@ std::string	addition(const bigint &obj1, const bigint &obj2)
 		}
 	}
 
-	size_t	len = str1.length();
-	unsigned int x = 0;
-	unsigned int y = 0;
-	unsigned int r = 0;
-	unsigned int carry = 0;
-	std::string	newstr;
-
-	for (size_t i = 0; i < len; i++)
+	std::string revstr;
+	int len = str1.length();
+	int x = 0, y = 0, r = 0, carry = 0;
+	for (int i = 0; i < len; i++)
 	{
 		x = str1[i] - '0';
 		y = str2[i] - '0';
 		r = x + y + carry;
-		newstr.push_back((r % 10) + '0');
+		revstr.push_back((r % 10) + '0');
 		carry = r / 10;
 	}
 	if (carry != 0)
-		newstr.push_back(carry + '0');
-	return (reverse(newstr));
+		revstr.push_back((carry % 10) + '0');
+	return reverse(revstr);
 }
 
 bigint	bigint::operator+(const bigint &other) const
 {
-	bigint	temp;
+	bigint temp;
 	temp._num = addition(*this, other);
 	return temp;
 }
@@ -94,39 +90,39 @@ bigint	&bigint::operator+=(const bigint &other)
 	return *this;
 }
 
-// ---------------------- addition ----------------------
+// ----------- addition -----------
 
-// ---------------------- increment decrement ----------------------
+// ----------- increment -----------
 
-bigint	&bigint::operator++()
+bigint &bigint::operator++()
 {
 	*this += bigint(1);
 	return *this;
 }
 
-bigint	bigint::operator++(int)
+bigint bigint::operator++(int)
 {
 	bigint temp(*this);
 	*this += bigint(1);
 	return temp;
 }
 
-// ---------------------- increment decrement ----------------------
+// ----------- increment -----------
 
-// ---------------------- bit shift with int ----------------------
+// ----------- bit shift int -----------
 
 bigint	bigint::operator<<(unsigned int i) const
 {
 	bigint temp(*this);
-	temp._num.insert(temp._num.end(), i, '0');
+	temp._num.insert(temp._num.length(), i, '0');
 	return temp;
 }
 
 bigint	bigint::operator>>(unsigned int i) const
 {
+	if (this->_num.length() < i)
+		return (bigint(0));
 	bigint temp(*this);
-	if (this->_num.length() <= i)
-		return bigint(0);
 	temp._num.erase(temp._num.length() - i, i);
 	return temp;
 }
@@ -143,9 +139,9 @@ bigint	&bigint::operator>>=(unsigned int i)
 	return *this;
 }
 
-// ---------------------- bit shift with int ----------------------
+// ----------- bit shift int -----------
 
-// ---------------------- bit shift with object ----------------------
+// ----------- bit shift obj -----------
 
 unsigned int	strtouint(std::string str)
 {
@@ -157,44 +153,35 @@ unsigned int	strtouint(std::string str)
 
 bigint	bigint::operator<<(const bigint &other) const
 {
-	bigint temp(*this);
-	temp._num.insert(temp._num.end(), strtouint(other._num), '0');
-	return temp;
+	return (*this << strtouint(other._num));
 }
 
 bigint	bigint::operator>>(const bigint &other) const
 {
-	bigint temp(*this);
-	unsigned int i = strtouint(other._num);
-	if (this->_num.length() <= i)
-		return bigint(0);
-	temp._num.erase(temp._num.length() - i, i);
-	return temp;
+	return (*this >> strtouint(other._num));
 }
 
 bigint	&bigint::operator<<=(const bigint &other)
 {
-	*this = *this << other;
-	return *this;
+	return (*this <<= strtouint(other._num));
 }
 
 bigint	&bigint::operator>>=(const bigint &other)
 {
-	*this = *this << other;
-	return *this;
+	return (*this >>= strtouint(other._num));
 }
 
-// ---------------------- bit shift with object ----------------------
+// ----------- bit shift obj -----------
 
-// ---------------------- compare ----------------------
+// ----------- compare -----------
 
 bool	bigint::operator<(const bigint &other) const
 {
-	size_t	len1 = this->_num.length();
-	size_t	len2 = other._num.length();
+	int len1 = this->_num.length();
+	int len2 = other._num.length();
 	if (len1 != len2)
-		return len1 < len2;
-	return this->_num < other._num;
+		return (len1 < len2);
+	return (this->_num < other._num);
 }
 
 bool	bigint::operator<=(const bigint &other) const
@@ -204,11 +191,11 @@ bool	bigint::operator<=(const bigint &other) const
 
 bool	bigint::operator>(const bigint &other) const
 {
-	size_t	len1 = this->_num.length();
-	size_t	len2 = other._num.length();
+	int len1 = this->_num.length();
+	int len2 = other._num.length();
 	if (len1 != len2)
-		return len1 > len2;
-	return this->_num > other._num;
+		return (len1 > len2);
+	return (this->_num > other._num);
 }
 
 bool	bigint::operator>=(const bigint &other) const
@@ -226,7 +213,7 @@ bool	bigint::operator!=(const bigint &other) const
 	return (this->_num != other._num);
 }
 
-// ---------------------- compare ----------------------
+// ----------- compare -----------
 
 std::ostream	&operator<<(std::ostream &os, const bigint &other)
 {

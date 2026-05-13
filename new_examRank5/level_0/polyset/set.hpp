@@ -4,7 +4,7 @@
 class set
 {
 	private:
-		searchable_bag	*_bag;
+		searchable_bag *_bag;
 	public:
 		set();
 		set(searchable_bag &bag);
@@ -12,12 +12,12 @@ class set
 		set	&operator=(const set &copy);
 		virtual ~set();
 
-		searchable_bag	&get_bag();
+		searchable_bag &get_bag() const;
 
 		void insert(int);
 		void insert(int *, int);
 		void print() const;
 		void clear();
 
-		bool	has(int) const;
+		bool has(int) const;
 };

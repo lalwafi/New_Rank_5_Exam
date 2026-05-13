@@ -1,5 +1,6 @@
 #include "bigint.hpp"
 #include <iostream>
+#include <stdbool.h> // delete in exam, unsure if allowed
 
 int main()
 {
@@ -14,7 +15,6 @@ int main()
 
     std::cout << "a + b = " << a + b << std::endl;
     std::cout << "(c += a) = " << (c += a) << std::endl;
-    std::cout << "c = " << c << std::endl;
 
     std::cout << "b = " << b << std::endl;
     std::cout << "++b = " << ++b << std::endl;
@@ -24,13 +24,6 @@ int main()
     std::cout << "(b << 10) + 42 = " << ((b << 10) + 42) << std::endl;
     std::cout << "(d <<= 4) = " << (d <<= 4) << std::endl;
     std::cout << "(d >>= 2) = " << (d >>= (const bigint)2) << std::endl;
-    std::cout << "b = " << b << std::endl;
-
-    bigint  f(101010);
-    std::cout << "f = " << f << std::endl;
-    std::cout << "f >> 6 = " << (f >> 6) << std::endl;
-    std::cout << "f = " << f << std::endl;
-
 
     std::cout << "a =" << a << std::endl;
     std::cout << "d =" << d << std::endl;

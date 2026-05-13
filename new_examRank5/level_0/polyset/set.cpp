@@ -9,43 +9,43 @@ set::set(const set &copy) : _bag(copy._bag) {}
 set	&set::operator=(const set &copy)
 {
 	if (this != &copy)
-		_bag = copy._bag;
+		this->_bag = copy._bag;
 	return *this;
 }
 
 set::~set() {}
 
-searchable_bag	&set::get_bag()
+searchable_bag &set::get_bag() const
 {
-	return *_bag;
+	return *this->_bag;
 }
 
 void	set::insert(int value)
 {
-	if (!(_bag->has(value)))
-		_bag->insert(value);
+	if (!this->_bag->has(value))
+		this->_bag->insert(value);
 }
 
-void	set::insert(int *data, int i)
+void	set::insert(int *data, int size)
 {
-	for (int j = 0; j < i; j++)
+	for (int i = 0; i < size; i++)
 	{
-		if (!(_bag->has(data[j])))
-			_bag->insert(data[j]);
+		if (!this->_bag->has(data[i]))
+			this->_bag->insert(data[i]);
 	}
 }
 
 void	set::print() const
 {
-	_bag->print();
+	this->_bag->print();
 }
 
 void	set::clear()
 {
-	_bag->clear();
+	this->_bag->clear();
 }
 
 bool	set::has(int value) const
 {
-	return _bag->has(value);
+	return (this->_bag->has(value));
 }

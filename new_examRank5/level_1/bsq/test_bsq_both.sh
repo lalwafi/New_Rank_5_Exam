@@ -1,7 +1,7 @@
 #!/bin/bash
 
-cd /Users/lalwafi/Desktop/exam_practice_git/new_examRank5/level_1/bsq || exit
-
+# cd /Users/lalwafi/Desktop/exam_practice_git/new_examRank5/level_1/bsq || exit        #mac
+cd /home/lalwafi/Desktop/my_shit/exam_practice_git/new_examRank5/level_1/bsq || exit   #wsl
 mkdir -p test_maps
 
 echo "========================================"
@@ -14,7 +14,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-gcc -Wall -Wextra -Werror short_bsq.c -o bsq2
+gcc -Wall -Wextra -Werror bsqme.c -o bsq2
 if [ $? -ne 0 ]; then
     echo "Failed to compile bsq2"
     exit 1
