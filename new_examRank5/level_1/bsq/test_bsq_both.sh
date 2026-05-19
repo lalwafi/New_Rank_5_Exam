@@ -8,13 +8,13 @@ echo "========================================"
 echo "COMPILING"
 echo "========================================"
 
-gcc -Wall -Wextra -Werror bsqme.c -o bsq1
+gcc -Wall -Wextra -Werror bsq_BEST.c -o bsq1
 if [ $? -ne 0 ]; then
     echo "Failed to compile bsq1"
     exit 1
 fi
 
-gcc -Wall -Wextra -Werror bsqme.c -o bsq2
+gcc -Wall -Wextra -Werror bsqTry.c -o bsq2
 if [ $? -ne 0 ]; then
     echo "Failed to compile bsq2"
     exit 1
@@ -63,26 +63,26 @@ run_file_test()
 }
 
 cat > test_maps/minimal.txt << 'EOF'
-1 . o x
+1.ox
 .
 EOF
 
 cat > test_maps/full_empty.txt << 'EOF'
-3 . o x
+3.ox
 ...
 ...
 ...
 EOF
 
 cat > test_maps/all_obstacles.txt << 'EOF'
-3 . o x
+3.ox
 ooo
 ooo
 ooo
 EOF
 
 cat > test_maps/priority.txt << 'EOF'
-4 . o x
+4.ox
 ....
 ....
 ....
@@ -90,7 +90,7 @@ cat > test_maps/priority.txt << 'EOF'
 EOF
 
 cat > test_maps/tiebreak.txt << 'EOF'
-5 . o x
+5.ox
 .o...
 ooooo
 .....
@@ -99,12 +99,12 @@ ooooo
 EOF
 
 cat > test_maps/single_row.txt << 'EOF'
-1 . o x
+1.ox
 .....
 EOF
 
 cat > test_maps/single_col.txt << 'EOF'
-5 . o x
+5.ox
 .
 .
 .
@@ -113,46 +113,46 @@ cat > test_maps/single_col.txt << 'EOF'
 EOF
 
 cat > test_maps/bad_len.txt << 'EOF'
-3 . o x
+3.ox
 ...
 ....
 ...
 EOF
 
 cat > test_maps/bad_count.txt << 'EOF'
-3 . o x
+3.ox
 ...
 ...
 EOF
 
 cat > test_maps/bad_chars.txt << 'EOF'
-3 . o x
+3.ox
 ...
 .x.
 ...
 EOF
 
 cat > test_maps/dup_chars.txt << 'EOF'
-3 . . x
+3..x
 ...
 ...
 ...
 EOF
 
-printf "3 . o x\n...\n...\n..." > test_maps/no_final_newline.txt
+printf "3.ox\n...\n...\n..." > test_maps/no_final_newline.txt
 
 cat > test_maps/zero_rows.txt << 'EOF'
-0 . o x
+0.ox
 EOF
 
 cat > test_maps/file1.txt << 'EOF'
-2 . o x
+2.ox
 ..
 ..
 EOF
 
 cat > test_maps/file2.txt << 'EOF'
-2 . o x
+2.ox
 o.
 .o
 EOF
@@ -203,14 +203,14 @@ echo "TEST 16: stdin input"
 echo "========================================"
 
 echo "---------- bsq1 ----------"
-echo "3 . o x
+echo "3.ox
 ...
 ...
 ..." | ./bsq1 2>&1
 
 echo ""
 echo "---------- bsq2 ----------"
-echo "3 . o x
+echo "3.ox
 ...
 ...
 ..." | ./bsq2 2>&1

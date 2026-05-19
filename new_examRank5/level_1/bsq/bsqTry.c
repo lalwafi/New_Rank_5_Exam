@@ -1,160 +1,197 @@
-#define _POSIX_C_SOURCE 200809L
 #include <unistd.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <stdio.h>
 
 typedef struct s_map
 {
 	int height;
 	int width;
-	char empty_c;
-	char obst_c;
-	char full_c;
+	char empty;
+	char obst;
+	char full;
 	char **grid;
-} t_map;
 
-static void free_map(t_map *m)
+	int y;
+	int x;
+	int size;
+}	t_map;
+
+void	freeMap(t_map *m)
 {
 	if (!m || !m->grid)
 		return ;
-	for (size_t i = 0; i < m->height; i++)
+	for (int i = 0; i < m->height; i++)
 		free(m->grid[i]);
 	free(m->grid);
 	m->grid = NULL;
 }
 
-static int parse_header(FILE *f, t_map *m)
+
+
+int fillElements(FILE *f, t_map *m)
 {
-	size_t y = 0;
-	char e = 0, o = 0, full = 0;
-	int n = fscanf(f, " %zu %c %c %c\n", &y, &e, &o, &full);
-	if (n != 4 || y == 0 || e == o || e == full || o == full)
+	int i = fscanf(f, "%d%c%c%c", &m->height, &m->empty, &m->obst, &m->full);
+	if (i != 4 || m->height <= 0 || m->empty == m->obst || m->empty == m->full || m->obst == m->full)
 		return -1;
-	m->height = y;
-	m->empty_c = e;
-	m->obst_c = o;
-	m->full_c = full;
+	
+	if (m->empty < 32 || m->empty > 126) return -1;
+	if (m->obst < 32 || m->obst > 126) return -1;
+	if (m->full < 32 || m->full > 126) return -1;
+	
+	m->width = 0;
+	m->x = 0;
+	m->y = 0;
+	m->size = 0;
 	return 0;
 }
 
-int read_lines(FILE *f, t_map *m)
+int parseMap(FILE *f, t_map *m)
 {
-	m->grid = (char **)calloc(m->height, sizeof(char *));
+	m->grid = (char **)malloc((m->height + 1) * sizeof(char *));
 	if (!m->grid)
 		return -1;
+	m->grid[m->height] = NULL;
+
+	char *line = NULL;
 	size_t cap;
-	ssize_t len;
-	char *line;
-	for (size_t i = 0; i < m->height; i++)
+	if (getline(&line, &cap, f) == -1)
 	{
-		len = getline(&line, &cap, f);
-		if (len < 0 || len == 0 || line[len - 1] != '\n')
+		freeMap(m);
+		return -1;
+	}
+
+	for (int i = 0; i < m->height; i++)
+	{
+		int len = getline(&line, &cap, f);
+		if (len == -1 || len - 1 <= 0 || line[len - 1] != '\n')
 		{
 			free(line);
+			freeMap(m);
 			return -1;
 		}
 
-		line[len - 1] = '\0'
-		len -= 1;
-		if (len <= 0)
-		{
-			free(line);
-			return -1;
-		}
+		line[len - 1] = '\0';
+		len--;
 
 		if (i == 0)
-			m->width = (size_t)len;
-		else if ((size_t)len != m->width)
+			m->width = len;
+		else if (len != m->width)
 		{
 			free(line);
+			freeMap(m);
 			return -1;
 		}
 
-		for (size_t x = 0; x < m->width; x++)
+		for (int x = 0; x < len; x++)
 		{
-			char c = line[i];
-			if (!(c == m->empty_c || c == m->obst_c))
+			if (!(line[x] == m->empty || line[x] == m->obst))
 			{
 				free(line);
+				freeMap(m);
 				return -1;
 			}
 		}
-		m->grid[i] = (char *)malloc(m->width + 1);
+
+		m->grid[i] = (char *)malloc((m->width + 1));
 		if (!m->grid[i])
 		{
 			free(line);
+			freeMap(m);
 			return -1;
 		}
-		
-		for (size_t x = 0; x < m->width; x++)
+
+		for (int x = 0; x <= m->width; x++)
 			m->grid[i][x] = line[x];
 	}
-	free(line)
+	free(line);
 	return 0;
 }
 
-static int parse_map(FILE *f, t_map *m)
+void	findBiggestSquare(t_map *m)
 {
-	m->grid = NULL;
-	m->height = 0;
-	m->width = 0;
-	m->empty_c = 0;
-	m->obst_c = 0;
-	m->full_c = 0;
-	
-	if (parse_header(f, m) != 0)
-		return -1;
-	if (read_lines(f, m) != 0)
+	int matrix[m->height][m->width];
+	for (int y = 0; y < m->height; y++)
 	{
-		free_map(m);
-		return -1;
-	}
-	return 0;
-}
-
-static int check_obstacles(const t_map *m, size_t x0, size_t y0, size_t size_try)
-{
-	size_t x_end = x0 + size_try;
-	size_t y_end = y0 + size_try;
-	for (size_t y = y0; y < y_end; y++)
-	{
-		for (size_t x = x0; x < x_end; x++)
+		for (int x = 0; x < m->width; x++)
 		{
-			if (m->grid[y][x] == m->obst_c)
-				return -1;
+			if (m->grid[y][x] == m->obst)
+				matrix[y][x] = 0;
+			else if (x == 0 || y == 0)
+				matrix[y][x] = 1;
+			else
+			{
+				int min = matrix[y - 1][x - 1];
+				if (min > matrix[y - 1][x])
+					min = matrix[y - 1][x];
+				if (min > matrix[y][x - 1])
+					min = matrix[y][x - 1];
+				matrix[y][x] = min + 1;
+			}
+
+			if (matrix[y][x] > m->size)
+			{
+				m->y = y - matrix[y][x] + 1;
+				m->x = x - matrix[y][x] + 1;
+				m->size = matrix[y][x];
+			}
 		}
 	}
+}
+
+void	fillAndPrint(t_map *m)
+{
+	for (int y = m->y; y < (m->y + m->size); y++)
+	{
+		for (int x = m->x; x < (m->x + m->size); x++)
+		{
+			if (y < m->height && x < m->width)
+				m->grid[y][x] = m->full;
+		}
+	}
+
+	for (int y = 0; y < m->height; y++)
+		printf("%s\n", m->grid[y]);
+}
+
+int execute(FILE *f)
+{
+	t_map m;
+	if (fillElements(f, &m) == -1)
+		return -1;
+	if (parseMap(f, &m) == -1)
+		return -1;
+	findBiggestSquare(&m);
+	fillAndPrint(&m);
+	freeMap(&m);
 	return 0;
 }
 
-static void fill_and_print(t_map *m, size_t x_best, size_t y_best, size_t size_best)
+int convertFile(char *path)
 {
-	if (size_best > 0)
-	{
-		for (size_t y = 0; y < size_best; y++)
-		{
-			for (size_t x = 0; x < size_best; x++)
-				m->grid[y][x] = m->full_c;
-		}
-	}
-	for (size_t y = 0; y < m->height; y++)
-	{
-		fputs(m->grid[y], stdout);
-		fputc('\n', stdout);
-	}
-	free_map(m);
-}
-
-static void execute(t_map *m)
-{
-	
+	FILE *f = fopen(path, "r");
+	if (!f)
+		return -1;
+	int i = execute(f);
+	fclose(f);
+	return i;
 }
 
 int main(int ac, char **av)
 {
-	if (ac <= 1)
+	if (ac == 1)
 	{
-
+		if (execute(stdin) == -1)
+			printf("map error\n");
 	}
+	else
+	{
+		for (int i = 1; i < ac; i++)
+		{
+			if (convertFile(av[i]) == -1)
+				printf("map error\n");
+			if (i < ac - 1)
+				printf("\n");
+		}
+	}
+	return 0;
 }

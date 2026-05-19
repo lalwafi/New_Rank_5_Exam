@@ -1,4 +1,4 @@
-3 . o x
+3.ox
 ooo
 ooo
 ooo

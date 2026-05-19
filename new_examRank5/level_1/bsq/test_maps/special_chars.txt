@@ -1,4 +1,4 @@
-3 a b c
+3abc
 aaa
 aaa
 aaa

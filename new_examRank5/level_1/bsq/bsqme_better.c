@@ -39,7 +39,7 @@ static int 	parse_header(FILE *f, t_map *m)
 
 static int read_lines(FILE *f, t_map *m)
 {
-	m->grid = (char **)calloc(m->height, sizeof(char **));
+	m->grid = (char **)calloc(m->height, sizeof(char *));
 	if (!m->grid)
 		return -1;
 	
@@ -220,5 +220,3 @@ int main(int ac, char **av)
 	return 0;
 }
 
-
-// test_maps/all_obstacles.txt test_maps/full_empty.txt test_maps/single_row.txt test_maps/bad_chars.txt test_maps/minimal.txt test_maps/special_chars.txt test_maps/bad_count.txt test_maps/no_final_newline.txt test_maps/tiebreak.txt test_maps/bad_len.txt test_maps/numeric_chars.txt test_maps/valid_example.txt test_maps/dup_chars.txt test_maps/priority.txt test_maps/zero_rows.txt test_maps/file1.txt test_maps/simple_test.txt test_maps/file2.txt test_maps/single_col.txt
