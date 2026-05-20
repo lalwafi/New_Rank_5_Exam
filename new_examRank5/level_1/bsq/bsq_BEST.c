@@ -32,16 +32,16 @@ int main(int ac, char **av)
 	if (ac == 1)
 	{
 		if (execute(stdin) == -1)
-			printf("%s", "map error\n");
+			fprintf(stdout, "map error\n");
 	}
 	else
 	{
 		for (int i = 1; i < ac; i++)
 		{
 			if (convertFile(av[i]) == -1)
-				printf("%s", "map error\n");
+				fprintf(stdout, "map error\n");
 			if (i < ac - 1)
-				printf("%c", '\n');
+				fprintf(stdout, "\n");
 		}
 	}
 	return 0;
@@ -92,26 +92,26 @@ int getElements(FILE *f, t_map *m)
 
 int parseMap(FILE *f, t_map *m)
 {
-	// allocate grid
-	m->grid = (char **)malloc((m->height + 1) * sizeof(char *));
-	if (!m->grid) return -1;
-	m->grid[m->height] = NULL;
-
 	// check if theres anything and skip first line
 	char *line = NULL;
 	size_t cap;
-	if (getline(&line, &cap, f) == -1)
+	if (getline(&line, &cap, f) == -1) return -1;
+	
+	// allocate grid
+	m->grid = (char **)malloc((m->height + 1) * sizeof(char *));
+	if (!m->grid)
 	{
-		freeMap(m->grid);
+		free(line);
 		return -1;
 	}
+	m->grid[m->height] = NULL;
 
 	// get each line
 	for (int i = 0; i < m->height; i++)
 	{
 		// get line and make sure its not empty and ends in \n
 		int len = getline(&line, &cap, f);
-		if (len == -1 || line[len - 1] != '\n' || (len - 1) <= 0)
+		if (len == -1 || (len - 1) <= 0 || line[len - 1] != '\n')
 		{
 			free(line);
 			freeMap(m->grid);
@@ -152,8 +152,8 @@ int parseMap(FILE *f, t_map *m)
 			return -1;
 		}
 
-		for (int j = 0; j <= m->width; j++)
-			m->grid[i][j] = line[j];
+		for (int x = 0; x <= m->width; x++)
+			m->grid[i][x] = line[x];
 	}
 	free(line);
 	return 0;
@@ -174,9 +174,9 @@ void findBiggestSquare(t_map *m)
 			else
 			{
 				int min = matrix[y - 1][x - 1];
-				if (matrix[y - 1][x] < min)
+				if (min > matrix[y - 1][x])
 					min = matrix[y - 1][x];
-				if (matrix[y][x - 1] < min)
+				if (min > matrix[y][x - 1])
 					min = matrix[y][x - 1];
 				matrix[y][x] = min + 1;
 			}
@@ -203,7 +203,7 @@ void	fillAndPrint(t_map *m)
 	}
 
 	for (int y = 0; y < m->height; y++)
-		printf("%s\n", m->grid[y]);
+		fprintf(stdout, "%s\n", m->grid[y]);
 }
 
 void	freeMap(char **arr)
