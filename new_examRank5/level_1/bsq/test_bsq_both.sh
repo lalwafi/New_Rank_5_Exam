@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# cd /Users/lalwafi/Desktop/exam_practice_git/new_examRank5/level_1/bsq || exit        #mac
-cd /home/lalwafi/Desktop/my_shit/exam_practice_git/new_examRank5/level_1/bsq || exit   #wsl
+cd /Users/lalwafi/Desktop/exam_practice_git/new_examRank5/level_1/bsq || exit        #mac
+# cd /home/lalwafi/Desktop/my_shit/exam_practice_git/new_examRank5/level_1/bsq || exit   #wsl
 mkdir -p test_maps
 
 echo "========================================"
