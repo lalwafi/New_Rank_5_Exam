@@ -176,7 +176,8 @@ std::ostream &operator<<(std::ostream& os,const vect2 &other)
 
 vect2	operator*(int num, const vect2 &other)
 {
-	vect2 temp(other);
+	vect2 temp(other); // ??
+	
 	return (other * num);
 }
 
