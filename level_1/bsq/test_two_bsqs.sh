@@ -1,9 +1,8 @@
 # I made this script so I can quickly check my practice file against the correct answer file
-# The script will show the output of your file against the correct file using different 
-#  maps I made in /test_maps 
-# Replace the files below as needed
-YOUR_ANSWER ="bsq.c"         # The correct solution
-CORRECT_ANSWER="bsq.c"      # Your attempt
+# The script will show the output of your file against the correct file using different maps I made in /test_maps 
+# Change the files below
+YOUR_ANSWER="bsq.c"     # The correct solution
+CORRECT_ANSWER="bsq.c"            # Your attempt
 
 # ====================================================================================================
 
@@ -41,11 +40,11 @@ run_test()
     echo "$title"
     echo "========================================"
 
-    echo "---------- YOUR ANSWER ----------"
+    echo "----------  Your Answer  ----------"
     eval "$cmd" | ./bsq1 2>&1
 
     echo ""
-    echo "---------- CORRECT ANSWER ----------"
+    echo "---------- Correct Answer ----------"
     eval "$cmd" | ./bsq2 2>&1
 
     echo ""
@@ -60,11 +59,11 @@ run_file_test()
     echo "$title"
     echo "========================================"
 
-    echo "---------- YOUR ANSWER ----------"
+    echo "----------  Your Answer  ----------"
     ./bsq1 $args 2>&1
 
     echo ""
-    echo "---------- CORRECT ANSWER ----------"
+    echo "---------- Correct Answer ----------"
     ./bsq2 $args 2>&1
 
     echo ""
@@ -197,11 +196,11 @@ echo "========================================"
 echo "TEST 15: Multiple files"
 echo "========================================"
 
-echo "---------- YOUR ANSWER ----------"
+echo "----------  Your Answer  ----------"
 ./bsq1 test_maps/file1.txt test_maps/file2.txt 2>&1
 
 echo ""
-echo "---------- CORRECT ANSWER ----------"
+echo "---------- Correct Answer ----------"
 ./bsq2 test_maps/file1.txt test_maps/file2.txt 2>&1
 
 echo ""
@@ -210,14 +209,14 @@ echo "========================================"
 echo "TEST 16: stdin input"
 echo "========================================"
 
-echo "---------- YOUR ANSWER ----------"
+echo "----------  Your Answer  ----------"
 echo "3.ox
 ...
 ...
 ..." | ./bsq1 2>&1
 
 echo ""
-echo "---------- CORRECT ANSWER ----------"
+echo "---------- Correct Answer ----------"
 echo "3.ox
 ...
 ...

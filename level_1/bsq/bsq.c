@@ -77,7 +77,6 @@ int getElements(FILE *f, t_map *m)
 	if (i != 4 || m->height <= 0 || m->empty_c == m->obst_c || m->empty_c == m->full_c || m->obst_c == m->full_c)
 		return -1;
 	
-	// check valid chars
 	if (m->empty_c < 32 || m->empty_c > 126) return -1;
 	if (m->obst_c < 32 || m->obst_c > 126) return -1;
 	if (m->full_c < 32 || m->full_c > 126) return -1;
@@ -92,12 +91,10 @@ int getElements(FILE *f, t_map *m)
 
 int parseMap(FILE *f, t_map *m)
 {
-	// check if theres anything and skip first line
 	char *line = NULL;
 	size_t cap;
 	if (getline(&line, &cap, f) == -1) return -1;
 	
-	// allocate grid
 	m->grid = (char **)malloc((m->height + 1) * sizeof(char *));
 	if (!m->grid)
 	{
@@ -106,10 +103,8 @@ int parseMap(FILE *f, t_map *m)
 	}
 	m->grid[m->height] = NULL;
 
-	// get each line
 	for (int i = 0; i < m->height; i++)
 	{
-		// get line and make sure its not empty and ends in \n
 		int len = getline(&line, &cap, f);
 		if (len == -1 || (len - 1) <= 0 || line[len - 1] != '\n')
 		{
@@ -118,11 +113,9 @@ int parseMap(FILE *f, t_map *m)
 			return -1;
 		}
 
-		// change the \n to \0
 		line[len - 1] = '\0';
 		len--;
 
-		// set width if not set, then check that each line is the same length
 		if (i == 0)
 			m->width = len;
 		else if (m->width != len)
@@ -132,7 +125,6 @@ int parseMap(FILE *f, t_map *m)
 			return -1;
 		}
 
-		// check map for invalid characters
 		for (int j = 0; j < m->width; j++)
 		{
 			if (!(line[j] == m->empty_c || line[j] == m->obst_c))
@@ -143,7 +135,6 @@ int parseMap(FILE *f, t_map *m)
 			}
 		}
 
-		// allocate grid line and add it
 		m->grid[i] = (char *)malloc(m->width + 1);
 		if (!m->grid[i])
 		{
