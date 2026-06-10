@@ -30,10 +30,8 @@ std::string	bigint::getstr() const
 std::string	reverse(const std::string str)
 {
 	std::string revstr;
-	// std::cout << "str = " << str << std::endl;
 	for (size_t i = str.length(); i > 0; i--)
 		revstr.push_back(str[i - 1]);
-	// std::cout << "revstr = " << revstr << std::endl;
 	return (revstr);
 }
 
@@ -44,11 +42,6 @@ std::string addition(const bigint &obj1, const bigint &obj2)
 	std::string res;
 	size_t len1 = str1.length();
 	size_t len2 = str2.length();
-
-
-	// std::cout << "len1 = " << len1 << std::endl;
-	// std::cout << "len2 = " << len2 << std::endl;
-
 
 	if (len1 > len2)
 	{
@@ -62,9 +55,6 @@ std::string addition(const bigint &obj1, const bigint &obj2)
 		while (dif-- > 0)
 			str1.push_back('0');
 	}
-	// std::cout << "str1 = " << str1 << std::endl;
-	// std::cout << "str2 = " << str2 << std::endl;
-
 
 	size_t len = str1.length();
 	int x = 0;

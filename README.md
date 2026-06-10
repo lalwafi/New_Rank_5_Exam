@@ -7,7 +7,7 @@ The things im not sure about in polyset are
 	- searchable array and searchable tree bag .cpp:
 		- virtual or nonvirtual destructors
 	- main.ccp:
-		- i found these two mains that test the most, but from what i saw everyone had different mains in their githubs
+		- The first main is the one you will get in exam, but i kept the second one because it ran more tests and helped me while studying
 
 everything else in polyset im sure of.
 
